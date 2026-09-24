@@ -206,7 +206,7 @@ function key(input,idx){const l=input.closest(".checklist")?.dataset.list||"x";r
 function updateProgress(name){const list=document.querySelector('.checklist[data-list="'+name+'"]');if(!list)return;const a=[...list.querySelectorAll('input[type="checkbox"]')],c=a.filter(x=>x.checked).length;const count=document.querySelector('[data-count="'+name+'"]'),bar=document.querySelector('[data-bar="'+name+'"]');if(count)count.textContent=c+"/"+a.length;if(bar)bar.style.width=(a.length?c/a.length*100:0)+"%"}
 function initChecks(){const a=[...document.querySelectorAll('.checklist input[type="checkbox"]')];a.forEach((x,i)=>{const k=key(x,i);x.dataset.key=k;x.checked=localStorage.getItem(k)==="1";x.addEventListener("change",()=>{x.checked?localStorage.setItem(k,"1"):localStorage.removeItem(k);updateProgress(x.closest(".checklist").dataset.list)})});document.querySelectorAll(".checklist[data-list]").forEach(x=>updateProgress(x.dataset.list))}
 document.getElementById("expand").onclick=()=>document.querySelectorAll("details").forEach(x=>x.open=true);document.getElementById("collapse").onclick=()=>document.querySelectorAll("details").forEach(x=>x.open=false);document.getElementById("reset").onclick=()=>{if(!confirm("このページのチェック状態をすべて解除しますか？"))return;Object.keys(localStorage).forEach(k=>{if(k.startsWith(PREFIX))localStorage.removeItem(k)});document.querySelectorAll('.checklist input[type="checkbox"]').forEach(x=>x.checked=false);document.querySelectorAll("[data-memo]").forEach(x=>x.value="");document.querySelectorAll(".checklist[data-list]").forEach(x=>updateProgress(x.dataset.list))};
-initChecks();initMemos();updateLive();setInterval(updateLive,250);
+initChecks();updateLive();setInterval(updateLive,250);
 })();
 </script>
 </body>
